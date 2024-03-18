@@ -3,13 +3,21 @@ import cv2
 import numpy as np
 from keras.models import load_model
 
+import os
+
 app = Flask(__name__)
 
 # Set up a global variable to store the latest frame
 global_frame = None
 
-# Load the Keras image classification model
-model = load_model("keras_Model.h5", compile=False)
+# Get the current directory of the script
+current_directory = os.path.dirname(os.path.abspath(__file__))
+
+# Define the path to the model file
+model_file = os.path.join(current_directory, "keras_Model.h5")
+
+# Load the Keras model
+model = load_model(model_file, compile=False)
 
 # Load the labels
 class_names = open("labels.txt", "r").readlines()
